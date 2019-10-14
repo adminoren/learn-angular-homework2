@@ -1,0 +1,31 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Avatar</th>
+      <th scope="col">Language</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="!showLoader; else load">
+    <tr *ngFor="let repository of repositories; let i = index">
+      <th scope="row">{{ i + 1 + numberOffset }}</th>
+      <td>{{ repository.name }}</td>
+      <td><img [src]="repository.owner.avatar_url" class="avatar" /></td>
+      <td>{{ repository.language }}</td>
+      <td>{{ repository.description }}</td>
+    </tr>
+  </tbody>
+</table>
+<ngb-pagination
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="totalCount"
+  [maxSize]="10"></ngb-pagination>
+
+<ng-template #load>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</ng-template>
